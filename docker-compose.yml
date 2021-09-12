@@ -12,13 +12,13 @@ services:
       environment:
         POSTGRES_DB: keycloak
         POSTGRES_USER: keycloak
-        POSTGRES_PASSWORD: ffhodhgfdkejgbckxjvherkjkdjgbvsklùqùlfk
+        POSTGRES_PASSWORD: "${DB_PASSWORD}"
   keycloak:
       image: keycloak-path
       build:
-        context: .
+        context: keycloak_docker
         args:
-          URL_PATH: keycloak
+          URL_PATH: keycloak/
       environment:
         PROXY_ADDRESS_FORWARDING: "true"
         DB_VENDOR: POSTGRES
@@ -26,9 +26,9 @@ services:
         DB_DATABASE: keycloak
         DB_USER: keycloak
         DB_SCHEMA: public
-        DB_PASSWORD: ffhodhgfdkejgbckxjvherkjkdjgbvsklùqùlfk
+        DB_PASSWORD: "${DB_PASSWORD}"
         KEYCLOAK_USER: admin
-        KEYCLOAK_PASSWORD: "ça va se passer bien"
+        KEYCLOAK_PASSWORD: "${ADMIN_PASSWORD}"
       ports:
         - 8080:8080
       depends_on:
